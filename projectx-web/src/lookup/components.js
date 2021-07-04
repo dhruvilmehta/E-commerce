@@ -30,7 +30,9 @@ export function backEndlookup(method,endpoint,callback,data){
   console.log("Token Passing ",tokken)
   // console.log(data,"JSON")
   const xhr=new XMLHttpRequest()
-    const url = `http://localhost:8000/api${endpoint}`
+    // const url = `http://127.0.0.1:8000/api${endpoint}`
+    const url =`https://projectxweb1.herokuapp.com/api${endpoint}`
+    console.log(url,"URL")
     xhr.responseType="json"
     const csrftoken=getCookie('csrftoken');
     // console.log("csrf",csrftoken)
@@ -38,7 +40,7 @@ export function backEndlookup(method,endpoint,callback,data){
     xhr.open(method,url)
     xhr.setRequestHeader("Content-Type","application/json")
     if(tokken){
-      console.log(tokken,"Token Setting")
+      // console.log(tokken,"Token Setting")
       xhr.setRequestHeader("Authorization",`Token ${tokken}`)
     }
     if(csrftoken){
@@ -50,11 +52,11 @@ export function backEndlookup(method,endpoint,callback,data){
       if(xhr.status===403){
         const detail=xhr.response.detail
         console.log(detail)
-        // if(detail==="Authentication credentials were not provided."){
-        //   if(window.location.href.indexOf("login")===-1){
-        //     window.location.href="/login?showLoginRequired=true"
-        //   }
-        // }
+        if(detail==="Authentication credentials were not provided."){
+          if(window.location.href.indexOf("login")===-1){
+            window.location.href="/login?showLoginRequired=true"
+          }
+        }
       }
       // console.log("RESPONSE",xhr.response,xhr.status)
       callback(xhr.response,xhr.status)

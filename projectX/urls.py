@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from books.views import bookdetail_view, cart_view, home_view, login_view, orders_view, yourbooks_view
+from books.views import bookdetail_view, cart_view, home_view, login_view, logout_view, orders_view, yourbooks_view
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
@@ -34,9 +34,10 @@ urlpatterns = [
     path('ownedBooks/',yourbooks_view),
     path('<str:bookname>',bookdetail_view),
     path('login/',login_view),
+    path('logout/',logout_view),
     path('auth/',obtain_auth_token),
-    url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
-    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+    # url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
+    # url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ]
 
 if settings.DEBUG:

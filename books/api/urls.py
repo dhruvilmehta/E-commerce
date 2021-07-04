@@ -6,7 +6,7 @@ urlpatterns = [
     path('owned/',ownedbooks_api_view),
     path('ordered/',ordered_api_view),
     path('cart/',user_cart_view),
-    path('<str:bookname>/',book_buy_view),
+    path('<str:bookname>/detail',book_buy_view),
     # path('<str:bookname>/buy',book_buy_view),
     path('users',general_api_view),
 ]

@@ -66,7 +66,7 @@ export function Button(props){
                 apiBookDetailBuyLookup(book.name,handleBackendBuy)
             }
             else{
-                window.location.href=book.name
+                window.location.href=`${book.name}/detail/`
             }
         }
         else if(actionName==="Buy All"){

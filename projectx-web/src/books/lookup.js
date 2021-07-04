@@ -24,7 +24,7 @@ export function apiCartBuyLookup(books,callback){
 }
 
 export function apiBookDetailLookup(bookname,callback){
-    backEndlookup("GET",`/books/${bookname}/`,callback)
+    backEndlookup("GET",`/books/${bookname}/detail`,callback)
 }
 
 export function apiBookDetailBuyLookup(bookname,callback){

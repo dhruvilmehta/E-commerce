@@ -19,3 +19,6 @@ def bookdetail_view(request,bookname):
 
 def login_view(request):
     return render(request,"pages/login.html")
+
+def logout_view(request):
+    return render(request,"pages/logout.html")

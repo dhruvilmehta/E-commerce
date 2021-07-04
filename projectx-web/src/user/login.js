@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { setToken } from '../lookup/components'
 import { backEndLoginlookup } from '../lookup/loginLookup'
 import { backEndRegisterlookup } from '../lookup/registerLookup'
 
 export function LoginComponent(props){
     const [username,setUsername]=useState("")
     const [password,setPassword]=useState("")
-    const {userLogin}=props
+    // const {userLogin}=props
     // console.log(userLogin)
     let credentials={username:username,password:password}
     const handleLoginToken=(response,status)=>{

@@ -21,7 +21,8 @@ export function backEndLoginlookup(data,callback){
     }
     // console.log(data,"JSON")
     const xhr=new XMLHttpRequest()
-      const url = `http://localhost:8000/auth/`
+      // const url = `http://127.0.0.1:8000/auth/`
+      const url=`https://projectxweb1.herokuapp.com/auth/`
       xhr.responseType="json"
       const csrftoken=getCookie('csrftoken');
       // console.log("csrf",csrftoken)

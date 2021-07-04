@@ -5,14 +5,16 @@ import { Button } from './buttons'
 
 export function BooksComponent(props){
     const [books,setBooks]=useState([])
+    const [isLoading,setIsLoading]=useState(true)
     const handleBackendLookup=(response,status)=>{
-        setBooks(response) 
         console.log("response",response,status)
+        setBooks(response) 
+        setIsLoading(false)
     }
     useEffect(()=>{
         apiBooksLookup(handleBackendLookup)
     },[])
-    return <React.Fragment>
+    return isLoading===true ? "Loading" :<React.Fragment>
                 {books.map((item,index)=>{
                     return <Book book={item} key={`${index}-{item.id}`}/>
                 })}
@@ -24,7 +26,7 @@ export function BookDetailComponent(props){
     const [isLoading,setIsLoading]=useState(true)
     // console.log("Props ",props.bookname)
     const handleBackendLookup=(response,status)=>{
-        // console.log("Book Detail Lookup",response,status)
+        console.log("Book Detail Lookup",response,status)
         setBook(response[0])
         setIsLoading(false)
     }
@@ -119,4 +121,28 @@ export function OrderedBooksComponent(props){
             </div>
         })}
     </div>
+}
+
+export function LogoutComponent(props){
+    const [message,setMessage]=useState("Are You Sure You Want to Logout ? ")
+    const [status,setStatus]=useState(true)
+    const handleLogout=()=>{
+        localStorage.setItem('token','')
+        setMessage("Log Out Successfull")
+        setStatus(false)
+    }
+    useEffect(()=>{
+        let token=localStorage.getItem('token')
+        if(token){
+            setStatus(true)
+            console.log(token,"TOKEN")
+        }
+        else{
+            setStatus(false)
+        }
+    },[])
+    return <div>
+        <div>{message}</div>
+        {status===true && <button onClick={handleLogout}>Logout</button>}
+        </div>
 }
