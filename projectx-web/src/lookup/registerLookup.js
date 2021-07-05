@@ -21,7 +21,8 @@ export function backEndRegisterlookup(data,callback){
     }
     // console.log(data,"JSON")
     const xhr=new XMLHttpRequest()
-      const url = 'http://127.0.0.1:8000/api/books/users'
+      // const url = 'http://127.0.0.1:8000/api/books/users'
+      const url=`https://projectxweb1.herokuapp.com/api/books/users`
       xhr.responseType="json"
       const csrftoken=getCookie('csrftoken');
       // console.log("csrf",csrftoken)

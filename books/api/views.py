@@ -84,7 +84,7 @@ def ordered_api_view(request):
 @api_view(['GET','POST'])
 def general_api_view(request):
     qs=User.objects.all()
-    print(request.data)
+    # print(request.data)
     serializer=SerializerAll(qs,many=True)
     if request.method=="POST":
         serializer=SerializerAll(data=request.data)
@@ -99,7 +99,7 @@ def general_api_view(request):
 #     serializer=BooksDetailSerializer(qs,many=True)
 #     return Response(serializer.data,status=200)
 
-@api_view(['GET'])
+@api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
 def book_buy_view(request,bookname):
     '''
@@ -118,7 +118,7 @@ def book_buy_view(request,bookname):
             # duration=data.get("duration")
                 qs=Books.objects.filter(name=bookname,available=True)
                 if not qs:
-                    return Response({"detail":"Book Not Available"},status=204)
+                    return Response({"detail":"Book Not Available"},status=404)
                 # print(qs)
                 qs=qs.first()
                 if qs.stock !=0:
@@ -131,10 +131,7 @@ def book_buy_view(request,bookname):
                 deliverydate=date.today()+relativedelta(days=2)
                 # returndate=deliverydate+relativedelta(months=duration)
                 books=BooksOrdered.objects.create(user=user,book=qs,deliveryDate=deliverydate)
-                orderid=books.id 
                 books.save()
-                ownedbookqs=OwnedBooks.objects.create(orderid=orderid,user=user,book=qs,ownerfrom=deliverydate)
-                ownedbookqs.save()
                 serializer=BooksDetailSerializer(qs)
                 # returndate=books.returndate
                 return Response(serializer.data,status=200)
@@ -198,10 +195,10 @@ def user_cart_view(request):
                     deliverydate=date.today()+relativedelta(days=2)
                     # returndate=deliverydate+relativedelta(months=duration)
                     books=BooksOrdered.objects.create(user=user,book=qs,deliveryDate=deliverydate)
-                    orderid=books.id
+                    # orderid=books.id
                     books.save()
-                    ownedbookqs=OwnedBooks.objects.create(orderid=orderid,user=user,book=qs,ownerfrom=deliverydate)
-                    ownedbookqs.save()
+                    # ownedbookqs=OwnedBooks.objects.create(orderid=orderid,user=user,book=qs,ownerfrom=deliverydate)
+                    # ownedbookqs.save()
                     UserCart.objects.filter(book__id=id).delete()
             else:
                 # status 406 = Not Acceptable

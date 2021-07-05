@@ -54,7 +54,7 @@ export function backEndlookup(method,endpoint,callback,data){
         console.log(detail)
         if(detail==="Authentication credentials were not provided."){
           if(window.location.href.indexOf("login")===-1){
-            window.location.href="/login?showLoginRequired=true"
+            window.location.href="/login/"
           }
         }
       }

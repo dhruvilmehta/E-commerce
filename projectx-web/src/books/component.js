@@ -33,7 +33,7 @@ export function BookDetailComponent(props){
     useEffect(()=>{
         apiBookDetailLookup(props.bookname,handleBackendLookup)
     },[])
-    return isLoading===true ? "" :<Book book={book} isDetail />
+    return isLoading===true ? "Loading" :<Book book={book} isDetail />
 }
 
 export function CartComponent(props){
@@ -85,14 +85,14 @@ export function OwnedBooksComponent(props){
         console.log("order",orders)
     }
     return isLoading ? "Loading" : <div> {orders.map((item,index)=>{
-        return <div className="border border-secondary mt-3">
+        return <div className="border border-secondary mt-3 " >
                 <div>Order Id : {item.orderid}</div>
-                <Book book={item.book} key={index} owned expiry={item.expiry} orderid={item.orderid}/>
+                <Book book={item.book} key={index} owned expiry={item.expiry} orderid={item.orderid} delivered={item.delivered}/>
                 <div>Order Duration :{item.duration}</div>
                 <div>OwnerFrom : {item.ownerfrom}</div>
                 <div>Book Expiry : {item.expiry}</div>
                 <div>Book Return Amount : {item.returnamount}</div>
-                <div>Boom Return Date : {item.returndate}</div>
+                <div>Book Return Date : {item.returndate}</div>
             </div>
     })}
     </div>
@@ -114,7 +114,7 @@ export function OrderedBooksComponent(props){
 
     return isLoading ? "Loading" : <div>
         {orders.map((item,index)=>{
-            return <div>
+            return <div className="border border-secondary">
                 <div>Order ID : {item.id}</div>
                 <Book book={item.book} key={index} ordered deliveryDate={item.deliveryDate} />
                 <div>Delivery Date : {item.deliveryDate} </div>
@@ -143,6 +143,6 @@ export function LogoutComponent(props){
     },[])
     return <div>
         <div>{message}</div>
-        {status===true && <button onClick={handleLogout}>Logout</button>}
+        {status===true && <button onClick={handleLogout} className="btn btn-danger">Logout</button>}
         </div>
 }

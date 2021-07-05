@@ -17,10 +17,11 @@ class OwnedBooksSerializer(serializers.ModelSerializer):
     book=BookSerializer(read_only=True)
     returndate=serializers.SerializerMethodField(read_only=True)
     returnamount=serializers.SerializerMethodField(read_only=True)
+    delivered=serializers.SerializerMethodField(read_only=True)
 
     class Meta: 
         model=OwnedBooks
-        fields=['orderid','book','duration','ownerfrom','expiry','returnamount','returndate']
+        fields=['orderid','book','duration','ownerfrom','expiry','returnamount','returndate','delivered']
 
     def get_returndate(self,obj):
         try:
@@ -34,6 +35,12 @@ class OwnedBooksSerializer(serializers.ModelSerializer):
         except:
             return None
 
+    def get_delivered(self,obj):
+        try:
+            return BooksOrdered.objects.get(id=obj.orderid).delivered
+        # print(delivered.delivered)
+        except:
+            return True
     
 
 class UserSerializer(serializers.ModelSerializer):

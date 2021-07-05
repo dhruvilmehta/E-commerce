@@ -67,7 +67,15 @@ export function LoginComponent(props){
     }
     return <div>
         <h1>Login User Form</h1>
-        <label>
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="text" class="form-control " placeholder="Enter Username" name="username" value={credentials.username} onChange={inputChanged} />
+          
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control " placeholder="Password" name="password" value={credentials.password} onChange={inputChanged} />
+
+            <button onClick={login} className="btn btn-primary">Login</button>
+            <button onClick={register} className="btn btn-secondary" >Register</button>
+        {/* <label>
             Username :
             <input type="text" name="username" value={credentials.username} onChange={inputChanged}></input>
         </label>
@@ -75,8 +83,8 @@ export function LoginComponent(props){
             Password :
             <input type="password" name="password" value={credentials.password} onChange={inputChanged}></input>
         </label>
-        <button onClick={login} >Login</button>
-        <button onClick={register} >Register</button>
+        <button onClick={login} className="btn btn-primary">Login</button>
+        <button onClick={register} className="btn btn-secondary" >Register</button> */}
     </div>
 }
 

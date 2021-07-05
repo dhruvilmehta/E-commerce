@@ -77,6 +77,8 @@ def orderedbookspostsave(sender,instance,created,**kwargs):
     if created:
         obj=OwnersHistory.objects.create(bookedon=date.today(),orderid=orderid,book=book,user=user)
         obj.save()
+        ownedbookqs=OwnedBooks.objects.create(orderid=orderid,user=user,book=book,ownerfrom=instance.deliveryDate)
+        ownedbookqs.save()
     historyobj=OwnersHistory.objects.filter(orderid=orderid,book=book,user=user).first()
     historyobj.deliveredon=instance.deliveryDate
     historyobj.save()

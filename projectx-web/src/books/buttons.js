@@ -10,6 +10,11 @@ export function Button(props){
     const [className,setClassName]=useState(props.className ? props.className : null)
     const handleBackendAddtoCart=(response,status)=>{
         console.log("Add To Cart ",response,status)
+        if(status===404){
+            if(response.detail==="Book Not Available"){
+                alert("Book Not Available")
+            }
+        }
         if(status===201){
             if(actionName==="Add To Cart"){
                 setActionName("Remove")
@@ -29,11 +34,17 @@ export function Button(props){
 
     const handleBackendBuy=(response,status)=>{
         console.log("BUY ",response,status)
+        if(response.detail==="Book Not Available"){
+            alert("Book Not Available")
+        }
     }
 
     const handleCartBuyAll=(response,status)=>{
         console.log("Cart Buy All",response,status)
         console.log("Buy All Successfull ")
+        if(status===201){
+            alert("Order Placed Successfully")
+        }
     }
 
     const handleReturnBook=(response,status)=>{

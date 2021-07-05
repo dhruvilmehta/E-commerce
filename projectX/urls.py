@@ -32,7 +32,7 @@ urlpatterns = [
     path('cart/',cart_view),
     path('orders/',orders_view),
     path('ownedBooks/',yourbooks_view),
-    path('<str:bookname>',bookdetail_view),
+    path('<str:bookname>/detail/',bookdetail_view),
     path('login/',login_view),
     path('logout/',logout_view),
     path('auth/',obtain_auth_token),
