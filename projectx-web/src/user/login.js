@@ -67,8 +67,8 @@ export function LoginComponent(props){
     }
     return <div>
         <h1>Login User Form</h1>
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="text" class="form-control " placeholder="Enter Username" name="username" value={credentials.username} onChange={inputChanged} />
+                <label for="exampleInputEmail1">Username</label>
+                <input type="text" class="form-control " placeholder="Username" name="username" value={credentials.username} onChange={inputChanged} />
           
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" class="form-control " placeholder="Password" name="password" value={credentials.password} onChange={inputChanged} />
