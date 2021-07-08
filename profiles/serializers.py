@@ -10,7 +10,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     mobilenumber=serializers.SerializerMethodField(read_only=True)
     class Meta:
         model=User
-        fields=['address','mobilenumber'] #'ownedbooks_set','booksordered_set'
+        fields=['username','first_name','last_name','address','mobilenumber'] #'ownedbooks_set','booksordered_set'
 
     def get_address(self,obj):
         return obj.profile.address

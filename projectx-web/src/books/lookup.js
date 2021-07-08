@@ -16,9 +16,11 @@ export function apicartLookup(callback){
 
 export function apiCartBuyLookup(books,callback){
     let bookarray=[]
+    // console.log(books," Books")
     books.forEach(element => {
         bookarray.push({"id":element})
     });
+    console.log(bookarray," BooksArray")
     const data={"action":"Buy","detail":bookarray}
     backEndlookup("POST","/books/cart/",callback,data)
 }

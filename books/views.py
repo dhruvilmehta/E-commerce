@@ -22,3 +22,6 @@ def login_view(request):
 
 def logout_view(request):
     return render(request,"pages/logout.html")
+
+def checkout_view(request):
+    return render(request,"pages/checkout.html")

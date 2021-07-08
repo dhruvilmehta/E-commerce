@@ -3,7 +3,7 @@ import { useState,useEffect } from "react"
 import { apicartLookup } from "./lookup"
 
 export function Book(props){
-    const {book,index,className,isDetail,inCart,onRemove,owned,expiry,orderid,ordered,deliveryDate,delivered}=props
+    const {book,index,className,isDetail,inCart,onRemove,owned,expiry,orderid,ordered,deliveryDate,delivered,checkout}=props
     const [buttonclassName,setButtonClassName]=useState(delivered===false ?  "btn btn-danger disabled" : owned ? expiry ? "btn btn-secondary disabled" : "btn btn-danger" : ordered ? "btn btn-danger disabled" : "btn btn-primary")
     const [buttonName,setButtonName]=useState(delivered===false ? "Book Not Delivered Yet" : owned ? expiry ? "Book Processing for Return" : "Return Book" :ordered ? `Estimated Delivery Date : ${deliveryDate}` : "Add To Cart")
     const [isLoading,setIsLoading]=useState(true)
@@ -43,7 +43,7 @@ export function Book(props){
       <h5 class="card-title">{book.name}</h5>
       <p class="card-text">Rs {book.price} Category: {book.type}</p>
       {!owned && !ordered && <Button buttonname="Buy" className="btn btn-primary" book={book} isDetail={isDetail} />}
-      <Button buttonname={buttonName} className={buttonclassName} book={book} inCart={inCart} onRemove={handleRemoveCartItem} index={index} orderid={orderid}/>
+      <Button buttonname={buttonName} className={buttonclassName} checkout={checkout} book={book} inCart={inCart} onRemove={handleRemoveCartItem} index={index} orderid={orderid}/>
     </div>
     </div>
   </div>

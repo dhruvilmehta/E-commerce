@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { apiBookDetailLookup, apiBooksLookup, apiCartBuyLookup, apicartLookup, apiOrderedBooksLookup, apiOwnedBooksLookup } from './lookup'
 import { Book } from './detail'
 import { Button } from './buttons'
+import { ProfileComponent } from '../profile'
 
 export function BooksComponent(props){
     const [books,setBooks]=useState([])
@@ -81,8 +82,8 @@ export function OwnedBooksComponent(props){
 
     const handleBackendLookup=(response,status)=>{
         setOrders(response)
-        console.log(response)
-        console.log("order",orders)
+        // console.log(response)
+        // console.log("order",orders)
     }
     return isLoading ? "Loading" : <div> {orders.map((item,index)=>{
         return <div className="border border-secondary mt-3 " >
@@ -129,6 +130,7 @@ export function LogoutComponent(props){
     const handleLogout=()=>{
         localStorage.setItem('token','')
         setMessage("Log Out Successfull")
+        window.location.href='/'
         setStatus(false)
     }
     useEffect(()=>{
@@ -145,4 +147,63 @@ export function LogoutComponent(props){
         <div>{message}</div>
         {status===true && <button onClick={handleLogout} className="btn btn-danger">Logout</button>}
         </div>
+}
+
+export function CheckoutComponent(props){
+    const [cart,setCart]=useState([])
+    const [isLoading,setIsLoading]=useState(true)
+    let cost=0
+    const handleCartLookup=(response,status)=>{
+        // console.log("Checkout Lookup ",response.usercart_set,status)
+        if(status===201){
+            setCart(response.usercart_set)
+        }
+        else{
+            alert("CheckOut Component Error ")
+        }
+        setIsLoading(false)
+    }
+
+    const handleRemoveCartItem=(index)=>{
+        setCart(cart.filter(item => cart.indexOf(item) !== index))
+    }
+
+    useEffect(()=>{
+        apicartLookup(handleCartLookup)
+    },[])
+
+    const handleCartBuyAll=(response,status)=>{
+        console.log("Cart Buy All ",response,status)
+        if(status===201){
+            window.location.href="/orders/"
+        }
+        if(status===406){
+            alert("Profile Not Completed")
+        }
+        else{
+            alert("Checkout Cart Buy Error ")
+        }
+    }
+
+    let bookids=cart.map((item,index)=>{
+        // console.log(item.book.price)
+        cost=cost+item.book.price
+        // setTotalCost(item.book.price)    Going Infinite Loop
+        return item.book.id
+    })
+    
+    const handleButtonPlaceOrder=()=>{
+        apiCartBuyLookup(bookids,handleCartBuyAll)
+    }
+
+    return isLoading===true ? "Loading" : <div>
+        <div className="text-warning">Note: Profile Should Be Completed Before Ordering</div>
+        <ProfileComponent />
+        <div>{cart.map((item,index)=>{
+        return <Book book={item.book} key={index} index={index} checkout onRemove={handleRemoveCartItem} />
+    })}
+    </div>
+    <div>Total Cost : {cost}</div>
+    <button className="btn btn-secondary" onClick={handleButtonPlaceOrder}>Place Order</button>
+    </div>
 }

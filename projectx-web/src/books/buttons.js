@@ -2,7 +2,7 @@ import { useState } from "react"
 import { apiAddtocartLookup, apiBookDetailBuyLookup, apiCartBuyLookup, apiReturnBooksLookup } from "./lookup"
 
 export function Button(props){
-    const {book,index,isDetail,inCart,onRemove,orderid}=props
+    const {book,index,isDetail,inCart,onRemove,orderid,checkout}=props
     // console.log(props.buttonname)
     // console.log("abcd ",props.cartbooks)
     const [actionName,setActionName]=useState(props.buttonname ? props.buttonname : null)
@@ -20,8 +20,14 @@ export function Button(props){
                 setActionName("Remove")
                 setClassName("btn btn-danger")
             }
+            if(actionName==="Buy"){
+                // setActionName("Remove")
+                // setClassName("btn btn-danger")
+                window.location.href="/checkout/"
+            }
             else if(actionName==="Remove"){
-                if(inCart===true){
+                if(inCart===true || checkout===true){
+                    console.log("Remove")
                     onRemove(index)
                 }
                 else{
@@ -74,14 +80,18 @@ export function Button(props){
         }
         else if(actionName==="Buy"){
             if(isDetail){
-                apiBookDetailBuyLookup(book.name,handleBackendBuy)
+                // apiBookDetailBuyLookup(book.name,handleBackendBuy)
+                action="Add"
+                apiAddtocartLookup(book.id,action,handleBackendAddtoCart)
+                // window.location.href="/checkout/"
             }
             else{
                 window.location.href=`${book.name}/detail/`
             }
         }
         else if(actionName==="Buy All"){
-            apiCartBuyLookup(props.cartbooks,handleCartBuyAll)
+            // apiCartBuyLookup(props.cartbooks,handleCartBuyAll)
+            window.location.href="/checkout/"
         }
         else if(actionName==="Return Book"){
             apiReturnBooksLookup(orderid,handleReturnBook)
