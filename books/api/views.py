@@ -1,4 +1,5 @@
 from datetime import date
+from re import S
 from profiles.models import Profile
 from rest_framework.decorators import api_view, authentication_classes,permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -10,8 +11,16 @@ from django.contrib.auth.models import User
 from dateutil.relativedelta import relativedelta
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def books_api_view(request):
+    query=request.GET.get("query")
+    print(query," query")
     qs=Books.objects.all()
+    if query:
+        qs=Books.objects.filter(name__icontains=query)
+        print(qs)
+        if not qs:
+            return Response({"detail":"Not Found"},status=404)
     serializer=BooksDetailSerializer(qs,many=True)
     return Response(serializer.data,status=200)
 

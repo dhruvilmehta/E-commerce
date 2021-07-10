@@ -48,3 +48,7 @@ export function apiReturnBooksLookup(orderid,callback){
 export function apiOrderedBooksLookup(callback){
     backEndlookup("GET","/books/ordered/",callback)
 }
+
+export function apiSearchLookup(query,callback){
+    backEndlookup("GET",`/books/?query=${query}`,callback)
+}

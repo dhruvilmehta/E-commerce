@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BooksComponent,BookDetailComponent,CartComponent } from './books';
-import { OrderedBooksComponent, OwnedBooksComponent ,LogoutComponent,  CheckoutComponent} from './books/component';
+import { OrderedBooksComponent, OwnedBooksComponent ,LogoutComponent,  CheckoutComponent, SearchComponent} from './books/component';
 import { LoginParentComponent } from './user/login';
 import { ProfileComponent } from './profile';
 
@@ -58,6 +58,10 @@ if(profile){
 const checkout=document.getElementById('checkout')
 if(checkout){
   ReactDOM.render(e(CheckoutComponent,checkout.dataset),checkout);
+}
+const search=document.getElementById('search')
+if(search){
+  ReactDOM.render(e(SearchComponent,search.dataset),search);
 }
 
 // If you want to start measuring performance in your app, pass a function

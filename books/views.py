@@ -1,3 +1,4 @@
+from django.db.models import query
 from django.shortcuts import render
 
 # Create your views here.
@@ -25,3 +26,7 @@ def logout_view(request):
 
 def checkout_view(request):
     return render(request,"pages/checkout.html")
+
+def search_view(request):
+    query=request.GET.get("query")
+    return render(request,"pages/search.html",context={"query":query})

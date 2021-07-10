@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { apiBookDetailLookup, apiBooksLookup, apiCartBuyLookup, apicartLookup, apiOrderedBooksLookup, apiOwnedBooksLookup } from './lookup'
+import { apiBookDetailLookup, apiBooksLookup, apiCartBuyLookup, apicartLookup, apiOrderedBooksLookup, apiOwnedBooksLookup, apiSearchLookup } from './lookup'
 import { Book } from './detail'
 import { Button } from './buttons'
 import { ProfileComponent } from '../profile'
@@ -15,9 +15,10 @@ export function BooksComponent(props){
     useEffect(()=>{
         apiBooksLookup(handleBackendLookup)
     },[])
+    console.log("Books ",books)
     return isLoading===true ? "Loading" :<React.Fragment>
                 {books.map((item,index)=>{
-                    return <Book book={item} key={`${index}-{item.id}`}/>
+                    return <Book book={item} key={index}/>
                 })}
             </React.Fragment>
 }
@@ -206,4 +207,26 @@ export function CheckoutComponent(props){
     <div>Total Cost : {cost}</div>
     <button className="btn btn-secondary" onClick={handleButtonPlaceOrder}>Place Order</button>
     </div>
+}
+
+export function SearchComponent(props){
+    const {query}=props
+    const [searchResults,setSearchResults]=useState([])
+    const [isLoading,setIsLoading]=useState(true)
+    const handleBackendSearchResults=(response,status)=>{
+        console.log(response,status)
+        setSearchResults(response)
+        setIsLoading(false)
+    }
+    console.log("search results ",searchResults)
+    useEffect(()=>{
+        apiSearchLookup(query,handleBackendSearchResults)
+    },[])
+    return isLoading===true ? "Loading" : <div>
+        {searchResults.map((item,index)=>{
+            // console.log(item)
+            return <Book book={item} key={index} />
+        })}
+    </div>
+
 }
