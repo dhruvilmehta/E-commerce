@@ -3,6 +3,8 @@ import { apiBookDetailLookup, apiBooksLookup, apiCartBuyLookup, apicartLookup, a
 import { Book } from './detail'
 import { Button } from './buttons'
 import { ProfileComponent } from '../profile'
+import { BookDetail } from './bookDetail'
+import { CartItem } from './cartItem'
 
 export function BooksComponent(props){
     const [books,setBooks]=useState([])
@@ -16,11 +18,31 @@ export function BooksComponent(props){
         apiBooksLookup(handleBackendLookup)
     },[])
     console.log("Books ",books)
-    return isLoading===true ? "Loading" :<React.Fragment>
-                {books.map((item,index)=>{
-                    return <Book book={item} key={index}/>
-                })}
-            </React.Fragment>
+    // return isLoading===true ? "Loading" :<React.Fragment>
+    //             {books.map((item,index)=>{
+    //                 return <Book book={item} key={index}/>
+    //             })}
+    //         </React.Fragment>
+    return isLoading===true ? "Loading" : <section class="section all-products" id="products">
+        <div class="top container">
+            <h1>All Products</h1>
+            <form>
+                <select>
+                    <option value="1">Defualt Sorting</option>
+                    <option value="2">Sort By Price</option>
+                    <option value="3">Sort By Popularity</option>
+                    <option value="4">Sort By Sale</option>
+                    <option value="5">Sort By Rating</option>
+                </select>
+                <span><i class='bx bx-chevron-down'></i></span>
+            </form>
+        </div>
+        <div class="product-center container">
+        {books.map((item,index)=>{
+            return <Book book={item} key={index}/>
+        })}
+        </div>
+    </section>
 }
 
 export function BookDetailComponent(props){
@@ -32,10 +54,14 @@ export function BookDetailComponent(props){
         setBook(response[0])
         setIsLoading(false)
     }
+    
     useEffect(()=>{
         apiBookDetailLookup(props.bookname,handleBackendLookup)
     },[])
-    return isLoading===true ? "Loading" :<Book book={book} isDetail />
+
+    // return isLoading===true ? "Loading" :<Book book={book} isDetail />
+
+    return isLoading===true ? "Loading" : <BookDetail book={book} />
 }
 
 export function CartComponent(props){
@@ -63,12 +89,36 @@ export function CartComponent(props){
     })
 
     // books.map((item,index)=>{console.log(item.book)})
-    return isLoading ? "" : bookids.length===0 ? <div className="text-muted">Cart Is Empty</div> :<div>
+
+    // return isLoading ? "" : bookids.length===0 ? <div className="text-muted">Cart Is Empty</div> :<div>
+    //     {books.map((item,index)=>{
+    //         return <Book book={item.book} key={index} index={index} inCart onRemove={handleRemoveCartItem} />
+    //     })}
+    //     {bookids.length!==0 && <Button buttonname="Buy All" className="btn btn-primary" cartbooks={bookids} />}  
+    //     {bookids.length!==0 && <div>Total Cost {cost}</div>}
+    // </div>
+
+    return isLoading ? "" : bookids.length===0 ? <div className="text-muted">Cart Is Empty</div> : <div class="container-md cart">
+        <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+        </tr>
         {books.map((item,index)=>{
-            return <Book book={item.book} key={index} index={index} inCart onRemove={handleRemoveCartItem} />
+            return <CartItem book={item.book} key={index} index={index} inCart onRemove={handleRemoveCartItem} />
         })}
-        {bookids.length!==0 && <Button buttonname="Buy All" className="btn btn-primary" cartbooks={bookids} />}
-        {bookids.length!==0 && <div>Total Cost {cost}</div>}
+        </table>
+        <div class="total-price">
+        <table>
+            <tr>
+            <td>Total</td>
+            <td>Rs {cost}</td>
+            </tr>
+        </table>
+        <a href="/checkout/" class="checkout btn">Proceed To Checkout</a>
+
+    </div>
     </div>
 }
 
@@ -78,18 +128,23 @@ export function OwnedBooksComponent(props){
 
     useEffect(()=>{
         apiOwnedBooksLookup(handleBackendLookup)
-        setIsLoading(false)
     },[])
-
+    
     const handleBackendLookup=(response,status)=>{
-        setOrders(response)
-        // console.log(response)
-        // console.log("order",orders)
+        // console.log(response,status)
+        if(status===500){
+
+        }else{
+            setOrders(response)
+            console.log(response,"Response")
+        }
+        setIsLoading(false)
     }
-    return isLoading ? "Loading" : <div> {orders.map((item,index)=>{
-        return <div className="border border-secondary mt-3 " >
-                <div>Order Id : {item.orderid}</div>
+
+    return isLoading ? "Loading" : orders.length===0 ? "No Orders" : <div className="product-center container"> {orders.map((item,index)=>{
+        return <div className="border border-secondary mt-3">
                 <Book book={item.book} key={index} owned expiry={item.expiry} orderid={item.orderid} delivered={item.delivered}/>
+                <div>Order Id : {item.orderid}</div>
                 <div>Order Duration :{item.duration}</div>
                 <div>OwnerFrom : {item.ownerfrom}</div>
                 <div>Book Expiry : {item.expiry}</div>
@@ -98,6 +153,22 @@ export function OwnedBooksComponent(props){
             </div>
     })}
     </div>
+
+    // return isLoading ? "Loading" : orders.length===0 ? "No Orders" : <section class="section all-products" id="products">
+    //     <div>
+    //      {orders.map((item,index)=>{
+    //     return <div class="product-center container">
+    //             <Book book={item.book} key={index} owned expiry={item.expiry} orderid={item.orderid} delivered={item.delivered}/>
+    //             <div>Order Id : {item.orderid}</div>
+    //             <div>Order Duration :{item.duration}</div>
+    //             <div>OwnerFrom : {item.ownerfrom}</div>
+    //             <div>Book Expiry : {item.expiry}</div>
+    //             <div>Book Return Amount : {item.returnamount}</div>
+    //             <div>Book Return Date : {item.returndate}</div>
+    //             </div>
+    // })}
+    // </div>
+    // </section>
 }
 
 export function OrderedBooksComponent(props){
@@ -106,7 +177,11 @@ export function OrderedBooksComponent(props){
 
     const handleBackendLookup=(response,status)=>{
         // console.log(response,status)
-        setOrders(response)
+        if(status===500){
+
+        }else{
+            setOrders(response)
+        }
         setIsLoading(false)
     }
 
@@ -114,7 +189,7 @@ export function OrderedBooksComponent(props){
         apiOrderedBooksLookup(handleBackendLookup)
     },[])
 
-    return isLoading ? "Loading" : <div>
+    return isLoading ? "Loading" : orders.length===0 ? "No Orders" : <div className="product-center container">
         {orders.map((item,index)=>{
             return <div className="border border-secondary">
                 <div>Order ID : {item.id}</div>
@@ -200,7 +275,7 @@ export function CheckoutComponent(props){
     return isLoading===true ? "Loading" : <div>
         <div className="text-warning">Note: Profile Should Be Completed Before Ordering</div>
         <ProfileComponent />
-        <div>{cart.map((item,index)=>{
+        <div className="product-center container">{cart.map((item,index)=>{
         return <Book book={item.book} key={index} index={index} checkout onRemove={handleRemoveCartItem} />
     })}
     </div>
@@ -222,11 +297,9 @@ export function SearchComponent(props){
     useEffect(()=>{
         apiSearchLookup(query,handleBackendSearchResults)
     },[])
-    return isLoading===true ? "Loading" : <div>
+    return isLoading===true ? "Loading" : <div class="product-center container">
         {searchResults.map((item,index)=>{
-            // console.log(item)
             return <Book book={item} key={index} />
         })}
-    </div>
-
+        </div>
 }

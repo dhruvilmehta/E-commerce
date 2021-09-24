@@ -14,6 +14,7 @@ class Books(models.Model):
     available=models.BooleanField(default=True)
     stock=models.IntegerField(default=0)
     users=models.ManyToManyField(User,blank=True)
+    photo=models.ImageField(blank=True)
 
     def __str__(self):
         return self.name

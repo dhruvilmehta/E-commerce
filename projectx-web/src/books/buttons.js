@@ -3,16 +3,23 @@ import { apiAddtocartLookup, apiBookDetailBuyLookup, apiCartBuyLookup, apiReturn
 
 export function Button(props){
     const {book,index,isDetail,inCart,onRemove,orderid,checkout}=props
+    // console.log(isDetail," Is Detail")
     // console.log(props.buttonname)
     // console.log("abcd ",props.cartbooks)
     const [actionName,setActionName]=useState(props.buttonname ? props.buttonname : null)
-    // console.log("actionname",actionName)
+    console.log("actionname ",actionName)
     const [className,setClassName]=useState(props.className ? props.className : null)
+    console.log(className," ClassName");
     const handleBackendAddtoCart=(response,status)=>{
         console.log("Add To Cart ",response,status)
         if(status===404){
             if(response.detail==="Book Not Available"){
                 alert("Book Not Available")
+            }
+        }
+        if(status===400){
+            if(actionName==="Buy"){
+                window.location.href="/cart/"
             }
         }
         if(status===201){
@@ -23,7 +30,7 @@ export function Button(props){
             if(actionName==="Buy"){
                 // setActionName("Remove")
                 // setClassName("btn btn-danger")
-                window.location.href="/checkout/"
+                window.location.href="/cart/"
             }
             else if(actionName==="Remove"){
                 if(inCart===true || checkout===true){

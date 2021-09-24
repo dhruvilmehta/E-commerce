@@ -26,7 +26,7 @@ SECRET_KEY = 'vqj%5z_bv_bgvp@51*q)yqny@-hta%n@g#elf2owfavg2ulnkh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','projectxweb1.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','projectxweb1.herokuapp.com']
 
 
 # Application definition
@@ -130,6 +130,9 @@ STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
 STATIC_ROOT=BASE_DIR / "static-root"
+
+MEDIA_ROOT=os.path.join(BASE_DIR,'static/media')
+MEDIA_URL='/media/'
 
 
 CORS_ORIGIN_ALLOW_ALL=True # Any website has access to my api 

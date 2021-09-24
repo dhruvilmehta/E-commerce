@@ -6,15 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"> -->
+    {% load static %}
     {% include 'react/css.html' %}
     <title>
     {% block title %}
     {% endblock title %}
-      </title>
+    </title>
   </head>
   <body>
     {% include 'components/navbar.html' %}
+    {% include 'components/navbarJS.html' %}
     {% block content %}
       
     {% endblock content %}
@@ -32,7 +34,7 @@
     -->
     {% include 'react/base_embed.html' %}
     {% include 'react/js.html' %}
-    <script>
+    <!-- <script>
       navbar=document.getElementById("navbar")
       let token=localStorage.getItem("token")
       //console.log("TOKEN",token)
@@ -64,11 +66,57 @@
           <a class="nav-link" href="/login/">Login</a>
       </li>`
       }
+    </script> -->
+
+
+    <script>
+      navbar=document.querySelector(".nav-list")
+      let token=localStorage.getItem("token")
+      if(token){
+        navbar.innerHTML=`
+        <li class="nav-item">
+          <a href="/" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="/orders/" class="nav-link">Your Orders</a>
+        </li>
+        <li class="nav-item">
+          <a href="/profile/" class="nav-link">Your Profile</a>
+        </li>
+        <li class="nav-item">
+          <a href="/ownedBooks/" class="nav-link">Owned Books</a>
+        </li>
+        <li class="nav-item">
+          <a href="/logout/" class="nav-link">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a href="/cart/" class="nav-link icon"><i class="bx bx-shopping-bag"></i></a>
+        </li>
+        `
+      }else{
+        navbar.innerHTML=`
+        <li class="nav-item">
+          <a href="/login/" class="nav-link">Login</a>
+        </li>
+        <li class="nav-item">
+          <a href="#about" class="nav-link">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="#contact" class="nav-link">Contact</a>
+        </li>
+        `
+      }
+
+      
+
     </script>
+
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script> -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" 
+    crossorigin="anonymous"></script> -->
+
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
   </body>
 </html>

@@ -4,9 +4,23 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
 class BookSerializer(serializers.ModelSerializer):
+    does_exists_in_cart=serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model=Books
-        fields=['id','name','price','type','available']
+        fields=['id','name','price','type','available','does_exists_in_cart','photo']
+
+    def get_does_exists_in_cart(self,obj):
+        context=self.context
+        request=context.get("request")
+        if request:
+            user=request.user
+            cartobj=UserCart.objects.filter(book=obj,user=user)
+            if cartobj.exists():
+                return True
+            else:
+                return False
+        return False
 
 class ReturnedBooksSerializer(serializers.ModelSerializer):
     class Meta:
@@ -62,7 +76,6 @@ class OwnedBooksSerializer2(serializers.ModelSerializer):
         model=OwnedBooks
         fields=['orderid','user','duration','ownerfrom','returnvalue']
 
-
 class OrderedBooksSerializer(serializers.ModelSerializer):
     # user=UserSerializer(read_only=True)
     book=BookSerializer(read_only=True)
@@ -90,11 +103,22 @@ class SerializerAll(serializers.ModelSerializer):
         return user
 
 class BooksDetailSerializer(serializers.ModelSerializer):
-    # users=UserSerializer(read_only=True,many=True)
-    ownedbooks_set=OwnedBooksSerializer2(many=True,read_only=True)
+    does_exists_in_cart=serializers.SerializerMethodField(read_only=True)
     class Meta:
         model=Books
-        fields=['id','name','price','type','available','stock','ownedbooks_set']
+        fields=['id','name','price','type','available','stock','does_exists_in_cart','photo']
+
+    def get_does_exists_in_cart(self,obj):
+        context=self.context
+        request=context.get("request")
+        if request:
+            user=request.user
+            cartobj=UserCart.objects.filter(book=obj,user=user)
+            if cartobj.exists():
+                return True
+            else:
+                return False
+        return False
 
 
 class UserCartSerializer(serializers.ModelSerializer):

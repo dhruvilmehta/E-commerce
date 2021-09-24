@@ -14,14 +14,14 @@ from dateutil.relativedelta import relativedelta
 @permission_classes([IsAuthenticated])
 def books_api_view(request):
     query=request.GET.get("query")
-    print(query," query")
+    # print(query," query")
     qs=Books.objects.all()
     if query:
         qs=Books.objects.filter(name__icontains=query)
-        print(qs)
+        # print(qs)
         if not qs:
             return Response({"detail":"Not Found"},status=404)
-    serializer=BooksDetailSerializer(qs,many=True)
+    serializer=BooksDetailSerializer(qs,many=True,context={"request":request})
     return Response(serializer.data,status=200)
 
 @api_view(['GET','POST'])
@@ -149,7 +149,7 @@ def book_buy_view(request,bookname):
                 return Response({"detail":"Profile Not Completed"},status=406)
         # serializer=OrderedBooksSerializer(books)
     # print("qs",qs)
-    serializer=BooksDetailSerializer(qs,many=True)
+    serializer=BooksDetailSerializer(qs,many=True,context={"request":request})
     return Response(serializer.data,status=200)
     
 
@@ -213,5 +213,5 @@ def user_cart_view(request):
                 # status 406 = Not Acceptable
                 return Response({"detail":"Profile Not Completed"},status=406)
     # usercart=UserCart.objects.filter(user=user)
-    serializer=UserCartSerializer(user)
+    serializer=UserCartSerializer(user,context={"request":request})
     return Response(serializer.data,status=201)
