@@ -96,9 +96,9 @@ li {
   overflow: hidden;
 }
 
-.nav {
+/* .nav {
   padding: 1.6rem 0;
-}
+} */
 
 .nav.fix-nav {
   position: fixed;

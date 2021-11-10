@@ -111,7 +111,9 @@ class BooksDetailSerializer(serializers.ModelSerializer):
     def get_does_exists_in_cart(self,obj):
         context=self.context
         request=context.get("request")
-        if request:
+        # print(request.user)
+        if request.user.is_authenticated:
+            # print("Checking")
             user=request.user
             cartobj=UserCart.objects.filter(book=obj,user=user)
             if cartobj.exists():

@@ -1,6 +1,7 @@
 import { Button } from "./buttons"
 import { useState,useEffect } from "react"
 import { apicartLookup } from "./lookup"
+import { useNavigate } from 'react-router-dom'
 
 export function Book(props){
     const {book,index,className,isDetail,inCart,onRemove,owned,expiry,orderid,ordered,deliveryDate,delivered,checkout}=props
@@ -13,23 +14,6 @@ export function Book(props){
       onRemove(index)
     }
 
-    // const handleCartLookup=(response,status)=>{
-    //   // console.log("Cart Items ",response.usercart_set)
-    //   if(status===403){
-    //     // console.log("Errror")
-    //   }
-    //   else{
-    //     let items=response.usercart_set
-    //     items.forEach(element => {
-    //       // console.log(element.book.id)
-    //       if(element.book.id===book.id){
-    //         setButtonClassName("btn btn-danger")
-    //         setButtonName("Remove")
-    //       }
-    //     });
-    //   }
-    //   setIsLoading(false)
-    // }
     const handleButtonName=()=>{
       if(book.does_exists_in_cart==true){
         setButtonClassName("btn btn-danger")
@@ -37,13 +21,16 @@ export function Book(props){
       }
       setIsLoading(false)
     }
-      useEffect(()=>{
-          // apicartLookup(handleCartLookup)
-          handleButtonName()
-      },[])
+    
+    useEffect(()=>{
+        // apicartLookup(handleCartLookup)
+        handleButtonName()
+    },[])
 
+    const navigate=useNavigate()
       const goToDetail=()=>{
-        window.location.href=`/${book.name}/detail/`;
+        // window.location.href=`/${book.name}/detail/`;
+        navigate(`/${book.name}/detail/`)
       }
 
     console.log(book.photo,"Books")

@@ -1,8 +1,10 @@
 import { useState } from "react"
+import { useNavigate } from "react-router"
 import { apiAddtocartLookup, apiBookDetailBuyLookup, apiCartBuyLookup, apiReturnBooksLookup } from "./lookup"
 
 export function Button(props){
     const {book,index,isDetail,inCart,onRemove,orderid,checkout}=props
+    const navigate=useNavigate()
     // console.log(isDetail," Is Detail")
     // console.log(props.buttonname)
     // console.log("abcd ",props.cartbooks)
@@ -19,7 +21,8 @@ export function Button(props){
         }
         if(status===400){
             if(actionName==="Buy"){
-                window.location.href="/cart/"
+                // window.location.href="/cart"
+                navigate('/cart')
             }
         }
         if(status===201){
@@ -30,7 +33,8 @@ export function Button(props){
             if(actionName==="Buy"){
                 // setActionName("Remove")
                 // setClassName("btn btn-danger")
-                window.location.href="/cart/"
+                // window.location.href="/cart/"
+                navigate('/cart')
             }
             else if(actionName==="Remove"){
                 if(inCart===true || checkout===true){

@@ -17,7 +17,7 @@ from profiles.views import profile_view
 from books.views import bookdetail_view, cart_view, checkout_view, home_view, login_view, logout_view, orders_view, search_view, yourbooks_view
 from django.contrib import admin
 from django.urls import path
-from django.urls.conf import include
+from django.urls.conf import include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.authtoken.views import obtain_auth_token
@@ -28,20 +28,31 @@ from django.conf.urls import url
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home_view),
+    path('cart/',home_view),
+    path('orders/',home_view),
+    path('ownedBooks',home_view),
+    # path('<str:bookname>/detail',home_view),
+    re_path(r'.*/detail',home_view),
+    path('login/',home_view),
+    path('logout/',home_view),
+    path('profile/',home_view),
+    path('checkout/',home_view),
+    path('search/',home_view),
     path('api/books/',include('books.api.urls')),
     path('api/profile/',include('profiles.api.urls')),
-    path('cart/',cart_view),
-    path('orders/',orders_view),
-    path('ownedBooks/',yourbooks_view),
-    path('<str:bookname>/detail/',bookdetail_view),
-    path('login/',login_view),
-    path('logout/',logout_view),
-    path('profile/',profile_view),
-    path('checkout/',checkout_view),
-    path('search/',search_view),
+    # re_path(r'.*',home_view),
+    # path('cart/',cart_view),
+    # path('orders/',orders_view),
+    # path('ownedBooks/',yourbooks_view),
+    # path('<str:bookname>/detail/',bookdetail_view),
+    # path('login/',login_view),
+    # path('logout/',logout_view),
+    # path('profile/',profile_view),
+    # path('checkout/',checkout_view),
+    # path('search/',search_view),
     path('auth/',obtain_auth_token),
-    # url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
-    # url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+    url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ]
 
 if settings.DEBUG:

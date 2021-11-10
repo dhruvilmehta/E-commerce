@@ -5,6 +5,8 @@ import { Button } from './buttons'
 import { ProfileComponent } from '../profile'
 import { BookDetail } from './bookDetail'
 import { CartItem } from './cartItem'
+import { useParams } from 'react-router'
+import { Link } from 'react-router-dom'
 
 export function BooksComponent(props){
     const [books,setBooks]=useState([])
@@ -18,11 +20,7 @@ export function BooksComponent(props){
         apiBooksLookup(handleBackendLookup)
     },[])
     console.log("Books ",books)
-    // return isLoading===true ? "Loading" :<React.Fragment>
-    //             {books.map((item,index)=>{
-    //                 return <Book book={item} key={index}/>
-    //             })}
-    //         </React.Fragment>
+    
     return isLoading===true ? "Loading" : <section class="section all-products" id="products">
         <div class="top container">
             <h1>All Products</h1>
@@ -48,6 +46,7 @@ export function BooksComponent(props){
 export function BookDetailComponent(props){
     const [book,setBook]=useState(null)
     const [isLoading,setIsLoading]=useState(true)
+    const {bookname}=useParams()
     // console.log("Props ",props.bookname)
     const handleBackendLookup=(response,status)=>{
         console.log("Book Detail Lookup",response,status)
@@ -56,7 +55,7 @@ export function BookDetailComponent(props){
     }
     
     useEffect(()=>{
-        apiBookDetailLookup(props.bookname,handleBackendLookup)
+        apiBookDetailLookup(bookname,handleBackendLookup)
     },[])
 
     // return isLoading===true ? "Loading" :<Book book={book} isDetail />
@@ -116,7 +115,7 @@ export function CartComponent(props){
             <td>Rs {cost}</td>
             </tr>
         </table>
-        <a href="/checkout/" class="checkout btn">Proceed To Checkout</a>
+        <Link to="/checkout/" class="checkout btn">Proceed To Checkout</Link>
 
     </div>
     </div>
@@ -253,7 +252,7 @@ export function CheckoutComponent(props){
         if(status===201){
             window.location.href="/orders/"
         }
-        if(status===406){
+        else if(status===406){
             alert("Profile Not Completed")
         }
         else{
@@ -284,22 +283,27 @@ export function CheckoutComponent(props){
     </div>
 }
 
-export function SearchComponent(props){
-    const {query}=props
+export function SearchComponent(){
+    const {query}=useParams()
+    console.log(query," Query")
     const [searchResults,setSearchResults]=useState([])
     const [isLoading,setIsLoading]=useState(true)
     const handleBackendSearchResults=(response,status)=>{
         console.log(response,status)
-        setSearchResults(response)
+        if(status===404){
+
+        }else{
+            setSearchResults(response)
+        }
         setIsLoading(false)
     }
     console.log("search results ",searchResults)
     useEffect(()=>{
         apiSearchLookup(query,handleBackendSearchResults)
     },[])
-    return isLoading===true ? "Loading" : <div class="product-center container">
+    return isLoading===true ? "Loading" : searchResults.length!==0 ? <div class="product-center container">
         {searchResults.map((item,index)=>{
             return <Book book={item} key={index} />
         })}
-        </div>
+        </div> : "Not Found"
 }

@@ -11,10 +11,10 @@ from django.contrib.auth.models import User
 from dateutil.relativedelta import relativedelta
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def books_api_view(request):
+    # print("request received at books_api_view")
     query=request.GET.get("query")
-    # print(query," query")
     qs=Books.objects.all()
     if query:
         qs=Books.objects.filter(name__icontains=query)
@@ -109,11 +109,12 @@ def general_api_view(request):
 #     return Response(serializer.data,status=200)
 
 @api_view(['GET','POST'])
-@permission_classes([IsAuthenticated])
-def book_buy_view(request,bookname):
+# @permission_classes([IsAuthenticated])
+def book_detail_view(request,bookname):
     '''
     {"action":"Buy"}
     '''
+    print(bookname)
     qs=Books.objects.filter(name=bookname)
     # qs=qs.first()
     # serializer=BooksDetailSerializer(qs,many=True)
