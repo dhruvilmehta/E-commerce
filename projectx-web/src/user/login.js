@@ -66,7 +66,10 @@ export function LoginComponent(props){
         // console.log(credentials)
     }
     return <div>
-        <h1>Login User Form</h1>
+        <h1>Login Here </h1>
+                <div>For sample login use credentials<br></br>Username: dhruvilmehta Password: 1234<br></br>
+                OR <br></br>You can enter your credentials and click on Register</div>
+                <br></br>
                 <label for="exampleInputEmail1">Username</label>
                 <input type="text" class="form-control " placeholder="Username" name="username" value={credentials.username} onChange={inputChanged} />
           

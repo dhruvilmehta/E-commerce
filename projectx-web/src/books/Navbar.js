@@ -215,10 +215,10 @@ function LoggedInNavbar(){
           <Link to="/ownedBooks" class="nav-link">Owned Books</Link>
         </li>
         <li class="nav-item">
-          <Link to="/logout" class="nav-link">Logout</Link>
+          <Link to="/cart" class="nav-link">Cart</Link>
         </li>
         <li class="nav-item">
-          <Link to="/cart" class="nav-link icon"><i class="bx bx-shopping-bag"></i></Link>
+          <Link to="/logout" class="nav-link">Logout</Link>
         </li>
     </ul>
 }

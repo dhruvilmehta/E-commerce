@@ -138,6 +138,9 @@ MEDIA_URL='/media/'
 CORS_ORIGIN_ALLOW_ALL=True # Any website has access to my api 
 # CORS_URLS_REGEX = r'^/api/.*$'
 
+
+DEFAULT_AUTO_FIELD='django.db.models.BigAutoField'
+
 DEFAULT_RENDERER_CLASSES=[
     'rest_framework.renderers.JSONRenderer',
 ]
