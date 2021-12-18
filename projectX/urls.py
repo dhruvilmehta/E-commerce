@@ -37,7 +37,7 @@ urlpatterns = [
     path('logout/',home_view),
     path('profile/',home_view),
     path('checkout/',home_view),
-    path('search/',home_view),
+    re_path(r'search/query=.*',home_view),
     path('api/books/',include('books.api.urls')),
     path('api/profile/',include('profiles.api.urls')),
     # re_path(r'.*',home_view),

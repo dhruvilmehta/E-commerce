@@ -26,7 +26,7 @@ function App() {
           <Route exact path="/checkout" element={<CheckoutComponent />} />
           {/* <Route exact path="/" element={<div id="profile"></div>} /> */}
           {/* <Route exact path="/search/" element={<div id="search" data-query="Rich+Dad+Poor+Dad"></div>} /> */}
-          <Route path="/searchquery=:query" element={<SearchComponent />} />
+          <Route path="/search/query=:query" element={<SearchComponent />} />
           <Route path="/:bookname/detail" element={<BookDetailComponent />} />
           {/* <Route exact path="/" element={<div id="profile"></div>} /> */}
         </Routes>
