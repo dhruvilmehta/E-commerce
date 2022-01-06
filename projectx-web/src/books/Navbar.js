@@ -1,6 +1,6 @@
 import React, { useEffect,useState } from 'react'
 import { gsap } from 'gsap'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export function Navbar() {
     const [token, setToken] = useState(localStorage.getItem("token"))
@@ -72,42 +72,6 @@ export function Navbar() {
         gsap.from(".hero-content a", { opacity: 0, duration: 1, delay: 3.5, y: 50 });
 
         let navbar = document.querySelector(".nav-list")
-        // const token = localStorage.getItem("token")
-        
-        // if (token) {
-        //     navbar.innerHTML = `
-        // <li class="nav-item">
-        //   <Link to="/" class="nav-link">Home</Link>
-        // </li>
-        // <li class="nav-item">
-        //   <a href="/orders/" class="nav-link">Your Orders</a>
-        // </li>
-        // <li class="nav-item">
-        //   <a href="/profile/" class="nav-link">Your Profile</a>
-        // </li>
-        // <li class="nav-item">
-        //   <a href="/ownedBooks/" class="nav-link">Owned Books</a>
-        // </li>
-        // <li class="nav-item">
-        //   <a href="/logout/" class="nav-link">Logout</a>
-        // </li>
-        // <li class="nav-item">
-        //   <Link to="/cart/" class="nav-link icon"><i class="bx bx-shopping-bag"></i></Link>
-        // </li>
-        // `
-        // } else {
-        //     navbar.innerHTML = `
-        // <li class="nav-item">
-        //   <a href="/login/" class="nav-link">Login</a>
-        // </li>
-        // <li class="nav-item">
-        //   <a href="#about" class="nav-link">About</a>
-        // </li>
-        // <li class="nav-item">
-        //   <a href="#contact" class="nav-link">Contact</a>
-        // </li>
-        // `
-        // }
     }, [])
 
 
@@ -126,28 +90,9 @@ export function Navbar() {
                         <i class="bx bx-x"></i>
                     </div>
                 </div>
+        
 
-                {/* <ul class="nav-list"> */}
                     <LoggedInNavbar />
-                    {/* <li class="nav-item">
-            <a href="index.html" class="nav-link">Home</a>
-          </li>
-          <li class="nav-item">
-            <a href="product.html" class="nav-link">Products</a>
-          </li>
-          <li class="nav-item">
-            <a href="#about" class="nav-link">About</a>
-          </li>
-          <li class="nav-item">
-            <a href="#contact" class="nav-link">Contact</a>
-          </li>
-          <li class="nav-item">
-            <a href="#contact" class="nav-link">Account</a>
-          </li>
-          <li class="nav-item">
-            <a href="cart.html" class="nav-link icon"><i class="bx bx-shopping-bag"></i></a>
-          </li> */}
-                {/* </ul> */}
             </div>
 
             <div class="hamburger">
@@ -169,28 +114,7 @@ export function Navbar() {
                         <i class="bx bx-x"></i>
                     </div>
                 </div>
-
-                {/* <ul class="nav-list"> */}
                     <LoggedOutNavbar />
-                    {/* <li class="nav-item">
-            <a href="index.html" class="nav-link">Home</a>
-          </li>
-          <li class="nav-item">
-            <a href="product.html" class="nav-link">Products</a>
-          </li>
-          <li class="nav-item">
-            <a href="#about" class="nav-link">About</a>
-          </li>
-          <li class="nav-item">
-            <a href="#contact" class="nav-link">Contact</a>
-          </li>
-          <li class="nav-item">
-            <a href="#contact" class="nav-link">Account</a>
-          </li>
-          <li class="nav-item">
-            <a href="cart.html" class="nav-link icon"><i class="bx bx-shopping-bag"></i></a>
-          </li> */}
-                {/* </ul> */}
             </div>
 
             <div class="hamburger">
@@ -200,8 +124,23 @@ export function Navbar() {
     </nav>
 }
 
+
 function LoggedInNavbar(){
-    return <ul class="nav-list">
+  const navigate=useNavigate()
+  const searchFunction=(event)=>{
+    let input=document.getElementById('searchinput')
+    console.log(input.value)
+    // window.location.href=`/search/query=${input.value}`
+    navigate(`/search/query=${input.value}`)
+  }
+    return <div>
+      <ul class="nav-list">
+        <li class="nav-item">
+          <input id="searchinput" class="form-control fs-2 p-0" type="search" placeholder="Search" aria-label="Search"></input>
+        </li>
+        <li class="nav-item">
+          <button id="searchbutton" class="btn btn-outline-success m-1" type="submit" onClick={searchFunction}>Search</button>
+        </li>
         <li class="nav-item">
           <Link to="/" class="nav-link">Home</Link>
         </li>
@@ -221,10 +160,24 @@ function LoggedInNavbar(){
           <Link to="/logout" class="nav-link">Logout</Link>
         </li>
     </ul>
+    </div>
 }
 
 function LoggedOutNavbar(){
+  const navigate=useNavigate()
+  const searchFunction=(event)=>{
+    let input=document.getElementById('searchinput')
+    console.log(input.value)
+    // window.location.href=`/search/query=${input.value}`
+    navigate(`/search/query=${input.value}`)
+  }
     return <ul class="nav-list">
+        <li class="nav-item">
+          <input id="searchinput" class="form-control fs-2 p-0" type="search" placeholder="Search" aria-label="Search"></input>
+        </li>
+        <li class="nav-item">
+          <button id="searchbutton" class="btn btn-outline-success m-1" type="submit" onClick={searchFunction}>Search</button>
+        </li>
         <li class="nav-item">
           <Link to="/login" class="nav-link">Login</Link>
         </li>

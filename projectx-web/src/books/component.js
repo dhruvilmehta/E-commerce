@@ -300,7 +300,7 @@ export function SearchComponent(){
     console.log("search results ",searchResults)
     useEffect(()=>{
         apiSearchLookup(query,handleBackendSearchResults)
-    },[])
+    },[query])
     return isLoading===true ? "Loading" : searchResults.length!==0 ? <div class="product-center container">
         {searchResults.map((item,index)=>{
             return <Book book={item} key={index} />
