@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from books.api.views import payment_view
 from profiles.views import profile_view
 from books.views import bookdetail_view, cart_view, checkout_view, home_view, login_view, logout_view, orders_view, search_view, yourbooks_view
 from django.contrib import admin
@@ -40,6 +41,7 @@ urlpatterns = [
     re_path(r'search/query=.*',home_view),
     path('api/books/',include('books.api.urls')),
     path('api/profile/',include('profiles.api.urls')),
+    path('payment/',payment_view),
     # re_path(r'.*',home_view),
     # path('cart/',cart_view),
     # path('orders/',orders_view),

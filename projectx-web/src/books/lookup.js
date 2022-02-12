@@ -41,7 +41,7 @@ export function apiOwnedBooksLookup(callback){
 export function apiReturnBooksLookup(orderid,callback){
     // {"action":"Return","detail":[{"orderid": 69},{"orderid": 69}]}
     const data={action:"Return",detail:[{orderid:orderid}]}
-    console.log(data,"Data")
+    // console.log(data,"Data")
     backEndlookup("POST","/books/owned/",callback,data)
 }
 

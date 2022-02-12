@@ -7,6 +7,8 @@ import { LoginParentComponent } from './user/login';
 import Navbar from './books/Navbar';
 import { ProfileComponent } from './profile';
 
+require('dotenv').config()
+
 function App() {
   return (
     // <div className="App">

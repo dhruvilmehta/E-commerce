@@ -1,4 +1,5 @@
 from datetime import date
+import datetime
 from re import S
 from profiles.models import Profile
 from rest_framework.decorators import api_view, authentication_classes,permission_classes
@@ -9,6 +10,9 @@ from rest_framework.response import Response
 from books.serializers import BookSerializer, BooksDetailSerializer, OwnedBooksSerializer, SerializerAll, UserCartSerializer, UserSerializer,OrderedBooksSerializer
 from django.contrib.auth.models import User
 from dateutil.relativedelta import relativedelta
+import razorpay
+
+from projectX.settings import RAZORPAY_API_KEY, RAZORPAY_SECRET_KEY
 
 @api_view(['GET'])
 # @permission_classes([IsAuthenticated])
@@ -216,3 +220,40 @@ def user_cart_view(request):
     # usercart=UserCart.objects.filter(user=user)
     serializer=UserCartSerializer(user,context={"request":request})
     return Response(serializer.data,status=201)
+
+
+@api_view(['GET','POST'])
+@permission_classes([IsAuthenticated])
+def payment_view(request):
+    if request.method=='POST':
+        user=request.user
+
+        # for calculating the total price of the books 
+        items=UserCart.objects.filter(user=user)
+        books=items.values_list('book',flat=True)
+        def get_price(id):
+            return Books.objects.get(id=id).price
+        amount=sum(map(get_price,books))
+        receipt=f"{datetime.datetime.now()}"+f"{user.id}"
+        # print(receipt)
+
+        client = razorpay.Client(auth=(RAZORPAY_API_KEY,RAZORPAY_SECRET_KEY ))
+        DATA = {
+            "amount": amount*100,
+            "currency": "INR",
+            "receipt": receipt,
+            "notes": {
+                "key1": "value3",
+                "key2": "value2"
+            }
+        }
+        response=client.order.create(data=DATA)
+        print(response)
+        return Response({
+            "id":response.get('id'),
+            "amount":response.get('amount'),
+            "name":user.username,
+            "email":user.username+"@gmail.com",
+            "contact":"9876543210"
+        })
+    return Response({})

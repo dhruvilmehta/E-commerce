@@ -15,25 +15,19 @@ function getCookie(name) {
   }
   return cookieValue;
 }
-// let tokken=''
-// export function setToken(token){
-//   tokken=token
-//   console.log("Token Set ")
-// }
-// export function getToken(){
-//   return token
-// }
+
 export function backEndlookup(method,endpoint,callback,data){
   let jsonData;
   if(data){
     jsonData=JSON.stringify(data)
   }
   let tokken=localStorage.getItem("token")
-  console.log("Token Passing ",tokken)
+  // console.log("Token Passing ",tokken)
   // console.log(data,"JSON")
+  // console.log(process.env.REACT_APP_DEBUG," ENV")
   const xhr=new XMLHttpRequest()
-    // const url = `http://127.0.0.1:8000/api${endpoint}`
-    const url =`https://projectxweb1.herokuapp.com/api${endpoint}`
+    const url = window.location.hostname==='localhost' ? `http://127.0.0.1:8000/api${endpoint}` : `https://projectxweb1.herokuapp.com/api${endpoint}`
+    
     console.log(url,"URL")
     xhr.responseType="json"
     const csrftoken=getCookie('csrftoken');

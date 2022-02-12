@@ -33,7 +33,7 @@ export function Book(props){
         navigate(`/${book.name}/detail/`)
       }
 
-    console.log(book.photo,"Books")
+    // console.log(book.photo,"Books")
   return isLoading===true ? "Loading" : <div class="product bookContainer" onClick={goToDetail}>
   <div class="product-header">
       <img src={book.photo} alt="" />

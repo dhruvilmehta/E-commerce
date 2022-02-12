@@ -9,11 +9,11 @@ export function Button(props){
     // console.log(props.buttonname)
     // console.log("abcd ",props.cartbooks)
     const [actionName,setActionName]=useState(props.buttonname ? props.buttonname : null)
-    console.log("actionname ",actionName)
+    // console.log("actionname ",actionName)
     const [className,setClassName]=useState(props.className ? props.className : null)
-    console.log(className," ClassName");
+    // console.log(className," ClassName");
     const handleBackendAddtoCart=(response,status)=>{
-        console.log("Add To Cart ",response,status)
+        // console.log("Add To Cart ",response,status)
         if(status===404){
             if(response.detail==="Book Not Available"){
                 alert("Book Not Available")
@@ -38,7 +38,7 @@ export function Button(props){
             }
             else if(actionName==="Remove"){
                 if(inCart===true || checkout===true){
-                    console.log("Remove")
+                    // console.log("Remove")
                     onRemove(index)
                 }
                 else{
@@ -50,22 +50,22 @@ export function Button(props){
     }
 
     const handleBackendBuy=(response,status)=>{
-        console.log("BUY ",response,status)
+        // console.log("BUY ",response,status)
         if(response.detail==="Book Not Available"){
             alert("Book Not Available")
         }
     }
 
     const handleCartBuyAll=(response,status)=>{
-        console.log("Cart Buy All",response,status)
-        console.log("Buy All Successfull ")
+        // console.log("Cart Buy All",response,status)
+        // console.log("Buy All Successfull ")
         if(status===201){
             alert("Order Placed Successfully")
         }
     }
 
     const handleReturnBook=(response,status)=>{
-        console.log(response,status)
+        // console.log(response,status)
         if(response.detail==="Book Not Delivered"){
             alert("Book Not Delivered")
         }
@@ -106,7 +106,7 @@ export function Button(props){
         }
         else if(actionName==="Return Book"){
             apiReturnBooksLookup(orderid,handleReturnBook)
-            console.log(orderid,"order ID OnClick")
+            // console.log(orderid,"order ID OnClick")
         }
     }
 
