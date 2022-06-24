@@ -26,7 +26,7 @@ export function backEndlookup(method,endpoint,callback,data){
   // console.log(data,"JSON")
   // console.log(process.env.REACT_APP_DEBUG," ENV")
   const xhr=new XMLHttpRequest()
-    const url = window.location.hostname==='localhost' ? `http://127.0.0.1:8000/api${endpoint}` : `https://projectxweb1.herokuapp.com/api${endpoint}`
+    const url = window.location.hostname==='localhost' ? `http://127.0.0.1:8000/api${endpoint}` : `https://bookecomm.herokuapp.com/api${endpoint}`
     
     console.log(url,"URL")
     xhr.responseType="json"
