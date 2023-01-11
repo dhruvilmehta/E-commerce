@@ -1,8 +1,8 @@
 echo " BUILD START"
-apt-get install python3.10
 python3 -m pip install --user virtualenv
 python3 -m venv env
 source env/bin/activate
+pip install sqlite-devel
 pip install db-sqlite3
 python -m pip install -r requirements.txt
 python manage.py makemigrations
