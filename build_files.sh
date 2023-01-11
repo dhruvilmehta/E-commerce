@@ -3,7 +3,7 @@ python3 -m pip install --user virtualenv
 python3 -m venv env
 source env/bin/activate
 yum install sqlite-devel
-pip install pysqlite
+pip install pysqlite3
 pip install db-sqlite3
 python -m pip install -r requirements.txt
 python manage.py makemigrations
