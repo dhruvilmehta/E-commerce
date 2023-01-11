@@ -11,7 +11,7 @@ export function ProfileComponent(props){
         console.log("Profile ",response,status)
         if(status===200){
             setAddress(response.address)
-            setMobileNumber(response .mobilenumber)
+            setMobileNumber(response.mobilenumber)
             setIsLoading(false)
         }
         else{

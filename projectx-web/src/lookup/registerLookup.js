@@ -21,7 +21,12 @@ export function backEndRegisterlookup(data,callback){
     }
     // console.log(data,"JSON")
     const xhr=new XMLHttpRequest()
-    const url = window.location.hostname==='localhost' ? 'http://127.0.0.1:8000/api/books/users' : `https://bookecomm.herokuapp.com/api/books/users`
+    const url = window.location.hostname==='localhost' ? 'http://127.0.0.1:8000/api/books/users' : `${window.location.hostname}/api/books/users`
+
+    // `https://bookecomm.herokuapp.com/api/books/users`
+    console.log(url,"URL")
+
+
       // const url = 'http://127.0.0.1:8000/api/books/users'
       // const url=`https://projectxweb1.herokuapp.com/api/books/users`
       xhr.responseType="json"

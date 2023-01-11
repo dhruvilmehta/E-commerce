@@ -9,7 +9,7 @@ export function Navbar() {
         const navOpen = document.querySelector(".hamburger");
         const navClose = document.querySelector(".close");
 
-        console.log("Navbar JS")
+        // console.log("Navbar JS")
 
         const navLeft = menu.getBoundingClientRect().left;
         navOpen.addEventListener("click", () => {
@@ -129,7 +129,7 @@ function LoggedInNavbar(){
   const navigate=useNavigate()
   const searchFunction=(event)=>{
     let input=document.getElementById('searchinput')
-    console.log(input.value)
+    // console.log(input.value)
     // window.location.href=`/search/query=${input.value}`
     navigate(`/search/query=${input.value}`)
   }
@@ -167,7 +167,7 @@ function LoggedOutNavbar(){
   const navigate=useNavigate()
   const searchFunction=(event)=>{
     let input=document.getElementById('searchinput')
-    console.log(input.value)
+    // console.log(input.value)
     // window.location.href=`/search/query=${input.value}`
     navigate(`/search/query=${input.value}`)
   }
