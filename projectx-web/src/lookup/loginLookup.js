@@ -21,8 +21,9 @@ export function backEndLoginlookup(data,callback){
     }
     // console.log(data,"JSON")
     const xhr=new XMLHttpRequest()
-    const url = window.location.hostname==='localhost' ? `http://127.0.0.1:8000/auth/` : `${window.location.hostname}/auth/`
+    // const url = window.location.hostname==='localhost' ? `http://127.0.0.1:8000/auth/` : `${window.location.hostname}/auth/`
     // `https://bookecomm.herokuapp.com/auth/`
+    const url = `https://${window.location.host}/auth/`
     console.log(url,"URL")
 
 

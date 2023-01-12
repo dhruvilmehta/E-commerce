@@ -21,9 +21,11 @@ export function backEndRegisterlookup(data,callback){
     }
     // console.log(data,"JSON")
     const xhr=new XMLHttpRequest()
-    const url = window.location.hostname==='localhost' ? 'http://127.0.0.1:8000/api/books/users' : `${window.location.hostname}/api/books/users`
+    // const url = window.location.hostname==='localhost' ? 'http://127.0.0.1:8000/api/books/users' : `${window.location.hostname}/api/books/users`
 
     // `https://bookecomm.herokuapp.com/api/books/users`
+
+    const url = `https://${window.location.host}/api/books/users`
     console.log(url,"URL")
 
 
