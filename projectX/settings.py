@@ -26,7 +26,7 @@ SECRET_KEY = 'vqj%5z_bv_bgvp@51*q)yqny@-hta%n@g#elf2owfavg2ulnkh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','.vercel.app', '.now.sh','172.16.86.158']
+ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
 
 # Application definition
@@ -129,8 +129,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
-# STATIC_ROOT=BASE_DIR / "static-root"
+STATIC_ROOT=BASE_DIR / "static-root"
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'static/media')
 MEDIA_URL='/media/'
