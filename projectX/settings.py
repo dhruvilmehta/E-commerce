@@ -26,7 +26,7 @@ SECRET_KEY = 'vqj%5z_bv_bgvp@51*q)yqny@-hta%n@g#elf2owfavg2ulnkh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','dhruvilmehta.pythonanywhere.com']
 
 
 # Application definition
@@ -62,7 +62,7 @@ ROOT_URLCONF = 'projectX.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['E-commerce/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,7 +136,7 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'static/media')
 MEDIA_URL='/media/'
 
 
-CORS_ORIGIN_ALLOW_ALL=True # Any website has access to my api 
+CORS_ORIGIN_ALLOW_ALL=True # Any website has access to my api
 # CORS_URLS_REGEX = r'^/api/.*$'
 
 
@@ -150,7 +150,7 @@ DEFAULT_AUTHENTICATION_CLASSES=[
     'rest_framework.authentication.SessionAuthentication',
     # 'rest_framework.authentication.BasicAuthentication',
     'rest_framework.authentication.TokenAuthentication'
-    
+
 ]
 if DEBUG:
     DEFAULT_RENDERER_CLASSES+=[
