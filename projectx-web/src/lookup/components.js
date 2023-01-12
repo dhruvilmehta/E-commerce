@@ -26,11 +26,13 @@ export function backEndlookup(method,endpoint,callback,data){
   // console.log(data,"JSON")
   // console.log(process.env.REACT_APP_DEBUG," ENV")
   const xhr=new XMLHttpRequest()
-    const url = window.location.hostname==='localhost' ? `http://127.0.0.1:8000/api${endpoint}` : `${window.location.hostname}/api${endpoint}`
+    // const url = window.location.hostname==='localhost' ? `http://127.0.0.1:8000/api${endpoint}` : `https://${window.location.host}/api${endpoint}`
+    const url = `https://${window.location.host}/api${endpoint}`
     // `https://bookecomm.herokuapp.com/api${endpoint}`
 
     // const url=`${window.location.hostname}/api${endpoint}`
-    
+    console.log(`http://${window.location.host}`)
+    console.log(endpoint)
     console.log(url,"URL")
     xhr.responseType="json"
     const csrftoken=getCookie('csrftoken');
