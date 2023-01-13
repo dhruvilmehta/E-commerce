@@ -269,7 +269,7 @@ export function CheckoutComponent(props){
             return
         }
 
-        const data=await fetch(window.location.hostname==='localhost' ? "http://localhost:8000/payment/" : 'https://projectxweb1.herokuapp.com/payment/',{
+        const data=await fetch(window.location.hostname==='localhost' ? "http://localhost:8000/payment/" : 'https://dhruvilmehta.pythonanywhere.com/payment/',{
             method:'POST',
             headers:{
                 "Authorization":`Token ${tokken}`,
