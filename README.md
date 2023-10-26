@@ -1,4 +1,4 @@
-# Books E-Commerce
+# E-Commerce Website
 
 Project Link:
-https://bookecomm.herokuapp.com/
+https://dhruvilmehta.pythonanywhere.com/
